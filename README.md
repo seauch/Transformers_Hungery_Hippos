@@ -7,32 +7,74 @@
 By Sarah Auch
 
 ## Overview
+Welcome to an introduction to the Hungry Hungry Hippos (H3) layer and FlashConv algorithm for State Space Models (SSMs). In the pursuit of efficient language models, the H3 project introduces these innovations to address computational bottlenecks in current language models.
 
-Welcome to an introduction to the H3 (Hungry Hungry Hippos) layer and FlashConv algorithm for State Space Models. With the release of models like ChatGPT, Claude, and Co-Pilot, transformers have become widely discussed and used by the general public for natural language processing. However, transformers are computationally intensive, especially for processing long sequences due to their quadratic time complexity. This has sparked interest in research to explore methods for achieving the benefits of transformers without the high computational costs. H3 adapts State Space Models (SSMs), well-regarded for modeling continuous sequential data and excelling in fields like time series analysis and control systems engineering to solve the problems seen with Transformers. 
+Transformers, used in popular models like ChatGPT, Claude, and Co-Pilot, are powerful for natural language processing but face high computational costs, especially with long sequences. Each additional token increases processing demand, slowing performance and escalating operational costs. Transformers also struggle with lengthy contexts, which often forces truncation and risks losing critical information, and their energy demands create environmental and accessibility concerns. The high computational costs stems from the self-attention mechanism, which calculates relationships between every pair of tokens in an input sequence. This calculation necessitates O(N^2) operations, meaning the computational requirements increase quadratically with sequence length.
 
-SSMs offer the potential for lower computational expense, as they operate with linear complexity, and can manage longer context lengths effectively. Innovations like the H3 architecture are enabling SSMs to expand into natural language processing, providing a more efficient alternative to transformers for handling long text sequences while maintaining strong performance, coming within 0.4 PPL of Transformers on OpenWebText, and even outperforming them by 1.0 PPL in hybrid configurations. Specifically, the H3 architecture incorporates the FlashConv algorithm, which enhances hardware utilization, and an H3 layer, which addresses SSMs' limitations in token recall and cross-sequence token comparison, two crucial capabilities for language modeling.
+The goal of the Hungry Hungry Hippos project is to replace attention mechanisms in transformers with alternative methods that do not grow quadratically in sequence length. The H3 project proposes an alternative approach using State Space Models (SSMs), known for efficiently handling continuous sequential data in fields like time series analysis and control systems. This approach aims to maintain the language modeling capabilities of transformers while reducing computational costs. By replacing attention mechanisms in transformers with methods that do not grow quadratically in sequence length, H3 seeks to achieve the benefits of transformers without the high computational costs.
 
-### What does it mean for transofrmers to be computationally intensive? 
-
-Transformers are "computationally intensive" because they demand significant processing power and memory, especially as input sequences get longer. This high demand primarily arises from the self-attention mechanism, which calculates relationships between every pair of tokens in an input sequence. This requires 
-O(n^2) operations, meaning that the computational needs grow quadratically with the length of the sequence. For example, if the sequence length doubles (from 500 to 1,000 tokens), the computational load increases fourfold (from 250,000 to 1,000,000 operations). This quadratic growth puts significant strain on memory and processing resources when handling long sequences.
+## Self-attention vs. State Space Models
 
 
-## Why is it problematic? 
 
-Each new token in a Transformer model introduces substantial computational demand, causing the model to slow down significantly with longer inputs. This impacts both training speed and real-time inference, making Transformers impractical for tasks that require quick responses. Additionally, handling longer sequences increases overall training time and costs, making large Transformer-based models (e.g., GPT, BERT) expensive to train. Training these models on extensive datasets with long sequences requires significant resources and can take weeks on specialized hardware, which limits accessibility for smaller organizations or research teams.
+## What does H3 have to do with the classic childhood game Hungry Hungry Hippos?
+Just like those hungry hippos snapping up marbles in a nonstop stream, the H3 model is built to "devour" long sequences of text with impressive speed and efficiency. Imagine playing Hungry Hungry Hippos—you don’t need to carefully compare each marble to every other marble (which would be painfully slow!); the hippos just keep chomping away in a smooth, continuous motion.
 
-Tasks like document summarization, language translation of long passages, and analysis of legal or technical documents require contextual understanding across many sentences or even pages. Standard Transformers struggle here since input sequences must be kept relatively short to manage computational demands. Often, sequences must be truncated, leading to a loss of crucial context, which can hinder performance on tasks requiring a full-document understanding.
+Similarly, while traditional Transformers get bogged down by trying to compare every word to every other word in a sequence (picture having to pair up each marble one by one), H3 tackles text in a more streamlined, seamless way, just like our marble-munching hippos. And just as those hippos never seem to get full, H3 can handle much longer sequences of text without getting computationally “stuffed,” making it a truly hungry model for processing language!
 
-The high computational and memory demands of Transformers also translate to increased energy consumption, with significant environmental impacts. Running large language models contributes to high carbon footprints, driven by the power required for both processing and cooling. Additionally, the cost of operating these models restricts their accessibility, potentially widening the gap between well-funded tech organizations and smaller labs, universities, or companies.
+
+## What is the the Attention Problem?
+
+Transformers are "computationally intensive" because they require substantial processing power and memory, particularly as input sequences grow longer. This intensive demand stems from the self-attention mechanism, which calculates relationships between every pair of tokens in an input sequence. This calculation necessitates O(N^2) operations, meaning the computational requirements increase quadratically with sequence length.
+
+For instance, if the sequence length doubles from 500 to 1,000 tokens, the computational load doesn’t just double—it quadruples, increasing from 250,000 to 1,000,000 operations. This quadratic growth imposes a heavy burden on memory and processing resources, especially when handling lengthy sequences. Such demand can slow processing speed, increase energy consumption, and limit accessibility, particularly for organizations with fewer resources. As a result, this scaling issue restricts transformers’ ability to manage tasks that require extended context or long-form data processing efficiently.
+
+## Why State Space Models?
+
+State Space Models (SSMs) offer an alternative by scaling linearly, requiring 
+O(n) operations instead of O(N^2). This linear scaling means that computational costs grow at the same rate as the sequence length, making SSMs significantly more efficient for longer sequences.
+
+For example:
+
+For 1,000 tokens, an SSM requires approximately 1,000 operations.
+For 2,000 tokens, it requires around 2,000 operations.
+
+By growing linearly, SSMs avoid the exponential increase in computational costs that transformers face. This makes them a promising approach for maintaining the benefits of transformers while mitigating the high resource demands, allowing for efficient handling of lengthy sequences without overwhelming memory or processing capacity.
+
+
+## The Goal of Hungry Hungry Hippos
+The goal of the Hungry Hungry Hippos project is to replace attention mechanisms in transformers with alternative methods that do not grow quadratically in sequence length. These new mechanisms should scale better with longer sequences, maintaining efficiency as input size increases. Additionally, they should provide similar modeling capabilities, ensuring that the model’s performance is not compromised. Finally, these methods should be designed to use less memory and computation, making the model more resource-efficient and accessible for broader applications. 
+
+
+
+## How H3 Achieves This?
+
+
+Instead of comparing all tokens with all others (attention approach)
+Uses two types of SSMs:
+
+Shift SSM: remembers recent tokens
+Diagonal SSM: maintains long-term information
+
+
+Combines them with multiplicative interactions to enable token comparison
+
+
+
+
+
+
+
 
 
 
 ## Questions
 
-How does a beloved childhood game relate to Natural Language Modeling? What are State Space Models? 
+Sources:
 
-## Introduction
+https://www.youtube.com/watch?v=TkOSKrlpnU4
+
+
 
 
 
