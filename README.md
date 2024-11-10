@@ -8,20 +8,20 @@ By Sarah Auch
 
 ## 
 
-Welcome to an introduction on "Hungry Hungry Hippos: Towards Language Modeling with State Space Models."
+Welcome to an introduction on "Hungry Hungry Hippos: Towards Language Modeling with State Space Models." This research investigates whether the attention mechanisms in transformers, which are central to models like ChatGPT, Claude, and Co-Pilot, can be replaced by alternative computational methods. Specifically, the study examines the viability of using State Space Models (SSMs) as a substitute, aiming to maintain or even enhance transformers' performance in tasks that require long-range dependencies.
 
-### "We are interested in seeing if we can start to replace attention with some other primatives that does grow quadratically in the sequence length" - Daniel Y. Fu
+### "We are interested in seeing if we can start to replace attention with some other primatives that does not grow quadratically in the sequence length" - Daniel Y. Fu
+
+This project, referred to as H3, addresses several computational bottlenecks presented by the attention mechanism. Transformers have revolutionized natural language processing, yet they face significant challenges, especially with high computational and memory costs that grow quadratically with sequence length. Each additional token in a sequence demands increased processing power and memory, slowing performance and escalating operational expenses. Transformers also struggle with long contexts, often forcing truncation and risking the loss of crucial information. Additionally, the high energy demands of transformers raise concerns about environmental and accessibility implications.
+
+The H3 project proposes SSMs as an alternative to attention. Unlike attention mechanisms, SSMs are well-suited for efficiently handling continuous sequential data, especially in fields like time series analysis and control systems, without the same computational overhead. By implementing SSMs, the H3 project seeks to preserve the language modeling capabilities of transformers while significantly reducing computational costs.
 
 
-This research investigates whether attention mechanisms in transformers can be effectively replaced by other computational primitives or mechanism, specifically examining state space models (SSMs) as an alternative. Given the challenges that attention brings, such as high computational costs and memory usage, this study explores whether SSMs can maintain or improve upon transformers' performance in language modeling, particularly for tasks requiring long-range dependencies.
 
 
-## Overview
-Welcome to an introduction to the Hungry Hungry Hippos (H3) layer and FlashConv algorithm for State Space Models (SSMs). In the pursuit of efficient language models, the H3 project introduces these innovations to address computational bottlenecks in current language models.
 
-Transformers, used in popular models like ChatGPT, Claude, and Co-Pilot, are powerful for natural language processing but face high computational costs, especially with long sequences. Each additional token increases processing demand, slowing performance and escalating operational costs. Transformers also struggle with lengthy contexts, which often forces truncation and risks losing critical information, and their energy demands create environmental and accessibility concerns. The high computational costs stems from the self-attention mechanism, which calculates relationships between every pair of tokens in an input sequence. This calculation necessitates O(N^2) operations, meaning the computational requirements increase quadratically with sequence length.
 
-The goal of the Hungry Hungry Hippos project is to replace attention mechanisms in transformers with alternative methods that do not grow quadratically in sequence length. The H3 project proposes an alternative approach using State Space Models (SSMs), known for efficiently handling continuous sequential data in fields like time series analysis and control systems. This approach aims to maintain the language modeling capabilities of transformers while reducing computational costs. By replacing attention mechanisms in transformers with methods that do not grow quadratically in sequence length, H3 seeks to achieve the benefits of transformers without the high computational costs.
+
 
 ## Self-attention vs. State Space Models
 
