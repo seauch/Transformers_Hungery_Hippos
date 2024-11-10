@@ -26,7 +26,20 @@ In a transformer model, each token in the context window doesn’t operate indep
 
 
 
-## What is being changed?
+## What did they do?
+
+The H3 layers, designed with state space models (SSMs) in place of self-attention, address several challenges inherent to Transformer architectures:
+
+Scalability: Unlike traditional attention mechanisms, which scale quadratically, H3 layers scale linearly with context length, making them more efficient for processing longer sequences.
+
+Flexible Context Handling: H3 layers operate without a fixed context window, allowing for more adaptable context management compared to conventional Transformer layers.
+Minimal Attention Usage: Nearly all attention layers in the Transformer model are replaced by H3 layers, except for two, significantly reducing the model's reliance on attention.
+
+Enhanced Performance: This approach leads to improved performance in language modeling tasks, achieving superior metrics like perplexity (PPL) and outperforming traditional Transformers in various downstream evaluations.
+
+Accelerated Speed and Scalability: With the implementation of FlashConv to optimize SSMs, H3 layers support scalability up to 2.7 billion parameters, significantly enhancing the model's speed and capacity.
+
+These features allow the H3 model to efficiently manage long sequences and large-scale data with enhanced performance and reduced computational requirements compared to traditional Transformers.
 
 
 
