@@ -23,7 +23,7 @@ We aim to expand the context length of our model. However, increasing it twofold
 ### Why? 
 In a transformer model, each token in the context window doesn’t operate independently—it "pays attention" to all other tokens to understand relationships and context. This means each token must connect with every other token in the window, creating a dense network of interactions that grows with the number of tokens. Doubling the number of tokens doesn’t just double these interactions; it quadruples them. For instance, increasing the tokens from 4 to 8 results in interactions jumping from 16 to 64, thereby quadrupling the processing cost. This exponential increase in interactions is what drives up computational costs significantly as we expand context length.
 
-
+<img src="./images/Attention.png" alt="Hungry Hippos Header" width="500"/>
 
 
 ## What did they do?
