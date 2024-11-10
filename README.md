@@ -8,9 +8,8 @@ By Sarah Auch
 
 ## 
 
-Welcome to an introduction on "Hungry Hungry Hippos: Towards Language Modeling with State Space Models." 
+Welcome to an introduction on "Hungry Hungry Hippos: Towards Language Modeling with State Space Models."
 
-## Goal
 ### "We are interested in seeing if we can start to replace attention with some other primatives that does grow quadratically in the sequence length" - Daniel Y. Fu
 
 
