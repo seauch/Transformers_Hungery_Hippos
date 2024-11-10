@@ -6,6 +6,17 @@
 # Presentation: Hungry Hungry Hippos: Towards Language Modeling with State Space Models
 By Sarah Auch
 
+## 
+
+Welcome to an introduction on "Hungry Hungry Hippos: Towards Language Modeling with State Space Models." 
+
+## Goal
+### "We are interested in seeing if we can start to replace attention with some other primatives that does grow quadratically in the sequence length" - Daniel Y. Fu
+
+
+This research investigates whether attention mechanisms in transformers can be effectively replaced by other computational primitives or mechanism, specifically examining state space models (SSMs) as an alternative. Given the challenges that attention brings, such as high computational costs and memory usage, this study explores whether SSMs can maintain or improve upon transformers' performance in language modeling, particularly for tasks requiring long-range dependencies.
+
+
 ## Overview
 Welcome to an introduction to the Hungry Hungry Hippos (H3) layer and FlashConv algorithm for State Space Models (SSMs). In the pursuit of efficient language models, the H3 project introduces these innovations to address computational bottlenecks in current language models.
 
