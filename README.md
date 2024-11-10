@@ -6,7 +6,7 @@
 # Presentation: Hungry Hungry Hippos: Towards Language Modeling with State Space Models
 By Sarah Auch
 
-## 
+## Introduction
 
 Welcome to an introduction on "Hungry Hungry Hippos: Towards Language Modeling with State Space Models." This research investigates whether the attention mechanisms in transformers, which are central to models like ChatGPT, Claude, and Co-Pilot, can be replaced by alternative computational methods. Specifically, the study examines the viability of using State Space Models (SSMs) as a substitute, aiming to maintain or even enhance transformers' performance in tasks that require long-range dependencies.
 
