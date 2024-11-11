@@ -35,7 +35,8 @@ In a transformer model, each token in the context window doesn’t operate indep
 
 
 
-## H3 Layer
+## Hybrid H3-Attention Language Models
+
 
 
 <div align="center">
