@@ -34,6 +34,12 @@ In a transformer model, each token in the context window doesn’t operate indep
 ## What does the childhood game Hungry Hungry Hippos have to do with replacing the attention mechanism with state space models?
 
 
+
+## H3 Layer
+
+
+
+
 ## What did they do?
 
 The H3 layers, designed with state space models (SSMs) in place of self-attention, address several challenges inherent to Transformer architectures:
