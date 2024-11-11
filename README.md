@@ -27,6 +27,9 @@ In a transformer model, each token in the context window doesn’t operate indep
 <div align="center">
   <img src="./images/Attention.png" alt="Hungry Hippos Header" width="500"/>
 </div>
+<sub>*Description: Step-by-step illustration of how transformer models process text: from input tokens through attention-based connections to parallel neural network processing, highlighting the computational demands of comparing all words simultaneously. This underscores the computational bottleneck in transformer architectures where attention mechanisms must process n² token relationships, illustrated through a real-world sentence example.*</sub>
+
+
 
 ## What does the childhood game Hungry Hungry Hippos have to do with replacing the attention mechanism with state space models?
 
