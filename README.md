@@ -28,6 +28,8 @@ In a transformer model, each token in the context window doesn’t operate indep
   <img src="./images/Attention.png" alt="Hungry Hippos Header" width="500"/>
 </div>
 
+## What does the childhood game Hungry Hungry Hippos have to do with replacing the attention mechanism with state space models?
+
 
 ## What did they do?
 
