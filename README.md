@@ -39,7 +39,7 @@ In a transformer model, each token in the context window doesn’t operate indep
 
 
 <div align="center">
-  <img src="./images/Hybrid.drawio.png" alt="Hungry Hippos Header/>
+  <img src="./images/Hybrid.drawio.png">
 </div>
 
 
