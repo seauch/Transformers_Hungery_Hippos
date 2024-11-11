@@ -40,7 +40,7 @@ In a transformer model, each token in the context window doesn’t operate indep
 Key takeaway: Hybrid H3-Attention Language Models found evidence that attention is not required at every layer to perform similarly to or even outperform traditional transformer models
 
 <div align="center">
-  <img src="./images/Hybrid.drawio.png">
+  <img src="./images/Hybrid.drawio.png" alt="Hungry Hippos Header">
 </div>
 
 
