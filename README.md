@@ -42,13 +42,13 @@ In a transformer model, each token in the context window doesn’t operate indep
 
 If there are \( h \) attention heads:
 - **Each head**: \( O(n^2) \)
-- **Total per layer**: \( h \times O(n^2) \)
+- **Total per layer**: \( h * O(n^2) \)
 
 ### Across All Layers
 - **Number of layers**: \( L \)
-- **Total complexity**: \( L * h \times O(n^2) \)
+- **Total complexity**: \( L * h * O(n^2) \)
 
-Memory requirements grow with \( L \times h \times n^2 \).
+Memory requirements grow with \( L * h * n^2 \).
 
 
 ## How can Attention be replaced?
