@@ -295,6 +295,43 @@ Key takeaway: Hybrid H3-Attention Language Models found evidence that attention 
 
 
 
+## Efficient Training and Inference
+
+While state space models (SSMs) scale nearly linearly with sequence length compared to the quadratic complexity of attention, existing SSM implementations still suffer from poor hardware utilization. **H3** introduces **FlashConv**, a hierarchical algorithm for computing SSMs that significantly improves training and inference speed through two key innovations:
+
+### Fused Block FFTConv
+
+For sequences up to length 8K, FlashConv employs a fused block FFT algorithm that dramatically enhances hardware efficiency:
+
+1. **Kernel Fusion**: The algorithm fuses the FFT, pointwise multiply, and inverse FFT operations into a single kernel to minimize costly GPU memory operations, reducing intermediate reads/writes that typically dominate runtime.
+
+2. **Block FFT**: FFT computation is decomposed into block-diagonal matrix multiplications interleaved with permutations, leveraging specialized matrix multiplication units (e.g., tensor cores on modern GPUs). This provides substantial speedups over standard FFT implementations.
+
+The block FFT algorithm achieves \(O(Nr \log N / \log r)\) FLOPs for sequence length \(N\) when \(N\) can be written as \(r^p\). Although this requires more operations than the standard \(O(N \log N)\) FFT, it achieves faster performance in practice through hardware-accelerated matrix operations.
+
+### State-Passing for Long Sequences
+
+For sequences longer than 8K that exceed GPU SRAM capacity, H3 employs a novel state-passing algorithm that:
+
+1. Splits input sequences into chunks of maximum size \(N'\) that fit in SRAM.
+2. Processes each chunk using the efficient block FFTConv.
+3. Maintains a recurrent state between chunks to preserve sequence continuity.
+4. Updates states efficiently using specialized matrix operations.
+
+This method enables scaling to arbitrary sequence lengths while maintaining near-linear computational complexity. The state-passing algorithm leverages the recurrent properties of SSMs to process long sequences chunk-by-chunk without sacrificing model capability.
+
+### Performance Results
+
+FlashConv delivers substantial speed improvements across multiple benchmarks:
+
+- **2x faster** than previous SSM implementations on the Long Range Arena benchmark.
+- **4-8x faster** training compared to attention for long sequences.
+- **2.4x faster** text generation in hybrid H3-attention models versus Transformer baselines.
+- Maintains **near-linear scaling** with sequence length, even for very long sequences.
+
+These efficiency gains were essential in scaling H3 to billion-parameter models. The optimized FFT computations and intelligent memory management make H3 a practical alternative to attention-based architectures for long-sequence modeling.
+
+The implementation achieves these speedups while preserving the theoretical advantages of SSMs. The algorithms are crafted to maximize hardware utilization on modern accelerators, ensuring numerical stability and accuracy.
 
 
 
