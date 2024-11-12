@@ -124,14 +124,7 @@ y = f * u + Du  # Convolve filter with input
   4. Take inverse FFT
 ```
 
-### Will State Space Models work for language tasks?
-
-
-
-
-
-
-
+### Addressing the Performance Gap with the H3 layer
 
 State Space Models have traditionally failed to perform as well on language modeling tasks. The research examined two specific synthetic tasks designed to test certain capabilities:
 
@@ -163,7 +156,20 @@ The H3 model was designed to address these challenges, achieving:
 - **100% on Induction Head**
 - **99.8% on Associative Recall**
 
-### What Happened?
+### H3 Layer
+
+<div align="center">
+  <img src="./images/Attention.drawio.png" alt="Hungry Hippos Header" width="500"/>
+</div>
+
+
+
+
+
+"The shift SSM can detect when a particular event occurs, and the diagonal SSM can remember a token afterwards for the rest of the sequence."
+
+
+
 
 1. H3 layer
 2. FlashConv
