@@ -181,6 +181,35 @@ Acts like a sliding window over recent tokens, providing short-term, local memor
 </div>
 
 
+### Diagonal SSM
+
+Acts as persistent memory across the entire sequence, providing long-term, global memory.
+
+#### Properties
+- **Uses diagonal matrix A**: Maintains information over long distances
+- **Can remember tokens**: From the beginning of the sequence
+
+#### Purpose
+- Tracks **global context**
+- Provides **long-term memory storage**
+- Retains information across the **entire sequence length**
+
+### Combining Both Types of Memory
+
+1. **Shift SSM (Local)**:
+   - "I just saw token X"
+   - Short-term pattern detection
+
+2. **Diagonal SSM (Global)**:
+   - "I remember seeing X earlier"
+   - Long-term information storage
+
+#### This Combination Enables
+- **Short-term token tracking**
+- **Long-term memory retention**
+- **Both local and global pattern recognition**
+
+
 ### Multiplicative Interactions Between SSMs (K⊙V)
 
 #### 1. First Multiplicative Interaction: SSMshift(K) ⊙ V
