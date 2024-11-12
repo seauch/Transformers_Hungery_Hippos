@@ -248,39 +248,40 @@ Acts as persistent memory across the entire sequence, providing long-term, globa
   <img src="./images/H3-example.png" alt="Hungry Hippos Header">
 </div>
 <div align="center">
-  <img src="./images/example_full.png" alt="Hungry Hippos Header">
+  <img src="./images/example_full.drawio.png" alt="Hungry Hippos Header">
 </div>
 
 
 
 
+## Evaluating 
+
+Evaluation of 2-layer models on synthetic language tasks.
+
+| Task               | Random | S4D  | Gated State Spaces | H3   | Attention |
+|--------------------|--------|------|---------------------|------|-----------|
+| Induction Head    | 5.0    | 35.6 | 6.8                 | 100.0| 100.0     |
+| Associative Recall| 25.0   | 86.0 | 78.0                | 99.8 | 100.0     |
+
+
+
+### Perplexity of SSM Variants Compared to Transformers on OpenWebText
+
+All models have 12 layers, with a size around 125M, and are trained with the same hyperparameters for 50B tokens.
+
+| Model                | Perplexity |
+|----------------------|------------|
+| H3                   | 21.0       |
+| H3 Hybrid (2 Attn)   | 19.6       |
+| S4D                  | 24.9       |
+| GSS                  | 24.0       |
+| GSS Hybrid (2 Attn)  | 19.8       |
+| Transformer          | 20.6       |
 
 
 
 
-
-### Illistration H3 Layer
-
-
-"The shift SSM can detect when a particular event occurs, and the diagonal SSM can remember a token afterwards for the rest of the sequence."
-
-### Mechanisms for Associative Recall Task
-In the Associative Recall task, the model's components function as follows:
-
-- The **shift SSM** and **first multiplicative interaction** act as a gate to control when to pass a value to the diagonal SSM.
-- The **diagonal SSM** stores the value in memory and continually outputs it.
-- The **final multiplicative interaction** determines whether to pass the diagonal SSM's output based on the current input token.
-
-
-
-
-
-## Evaluating Perplexity on OpenWebText
-
-
-
-
-## Hybrid H3-Attention Language Models
+### Hybrid H3-Attention Language Models
 
 Key takeaway: Hybrid H3-Attention Language Models found evidence that attention is not required at every layer to perform similarly to or even outperform traditional transformer models
 
@@ -289,42 +290,15 @@ Key takeaway: Hybrid H3-Attention Language Models found evidence that attention 
 </div>
 
 
-## H3 Layer
-
-### Illistration
-
-
-### Shift SSM
 
 
 
-```
-Time step 1:  [A] -> [_] -> [_] -> [_]
-Time step 2:  [B] -> [A] -> [_] -> [_]
-Time step 3:  [C] -> [B] -> [A] -> [_]
-Time step 4:  [D] -> [C] -> [B] -> [A]
-```
-
-```
-Original sequence (K):
-"Barack"    [1.0, 0.5]  # Original values
-"and"    [0.8, 0.7]
-"Michelle" [1.2, 0.3]
-"Obama's"   [0.6, 0.9]
-
-After Shift SSM (K̄):
-"Barack"    [0.0, 0.0]  # No previous context
-"and"    [0.8, 0.4]  # Influenced by "Barack"
-"Michelle" [0.7, 0.6]  # Influenced by "Barack" and "and"
-"Obama's"   [0.9, 0.3]  # Influenced by all previous words
-```
 
 
-### Multiplicative Interactions
 
-### Diagonal SSM
 
-### Multiplicative Interactions
+
+
 
 
 
