@@ -46,7 +46,7 @@ If there are \( h \) attention heads:
 
 ### Across All Layers
 - **Number of layers**: \( L \)
-- **Total complexity**: \( L \times h \times O(n^2) \)
+- **Total complexity**: \( L * h \times O(n^2) \)
 
 Memory requirements grow with \( L \times h \times n^2 \).
 
