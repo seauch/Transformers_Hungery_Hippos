@@ -73,7 +73,7 @@ State Space Models have traditionally failed to perform as well on language mode
 Attention has inherent mechanisms to manage both tasks:
 
 - **Token Comparison**: Achieved through the quadratic attention matrix \( QK^T \)
-- **Direct Recall**: Accomplished by multiplying \( \text{softmax}(QK^T) \) with \( V \)
+- **Direct Recall**: Accomplished by multiplying \( text{softmax}(QK^T) \) with \( V \)
 
 ### Performance of Traditional SSMs
 Traditional SSMs struggled on these tasks:
