@@ -62,8 +62,9 @@ Memory requirements grow with \( L * h * n^2 \).
 State Space Models (SSMs) have proven effective for modeling sequences like audio data and time series, demonstrating their potential for sequential tasks. While SSMs offer attractive properties like linear scaling and infinite context during generation, previous SSM architectures faced two key challenges:
 
 Pros:
-- During training: O(NlogN) in sequence length
-- During Generation: No need to process the whole input and no constraight to Context Length
+- During training: SSMs scale with 
+O(NlogN) in sequence length, instead of O(N^2) like attention – that makes them promising for long sequence modeling.
+- During Generation: There’s no fixed context window, since SSMs admit a completely recurrent view
 
 Cons:
 Performance Gap:
