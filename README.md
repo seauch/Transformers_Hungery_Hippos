@@ -57,6 +57,18 @@ Key takeaway: Hybrid H3-Attention Language Models found evidence that attention 
 </div>
 
 
+## H3 Layer
+
+
+'print('Hello World')'
+
+
+
+
+
+
+
+
 
 
 
