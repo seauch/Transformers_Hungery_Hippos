@@ -242,6 +242,7 @@ Acts as persistent memory across the entire sequence, providing long-term, globa
 - `Final output = Q ⊙ SSMdiag(SSMshift(K) ⊙ V)`
 
 
+### A simple example in action
 
 
 
@@ -249,8 +250,10 @@ Acts as persistent memory across the entire sequence, providing long-term, globa
 
 
 
-1. H3 layer
-2. FlashConv
+
+
+
+
 
 ### Illistration H3 Layer
 
