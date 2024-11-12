@@ -59,6 +59,8 @@ Key takeaway: Hybrid H3-Attention Language Models found evidence that attention 
 
 ## H3 Layer
 
+
+
 ```
 Time step 1:  [A] -> [_] -> [_] -> [_]
 Time step 2:  [B] -> [A] -> [_] -> [_]
@@ -66,7 +68,19 @@ Time step 3:  [C] -> [B] -> [A] -> [_]
 Time step 4:  [D] -> [C] -> [B] -> [A]
 ```
 
+```
+Original sequence (K):
+"The"    [1.0, 0.5]  # Original values
+"cat"    [0.8, 0.7]
+"chased" [1.2, 0.3]
+"mice"   [0.6, 0.9]
 
+After Shift SSM (K̄):
+"The"    [0.0, 0.0]  # No previous context
+"cat"    [0.8, 0.4]  # Influenced by "The"
+"chased" [0.7, 0.6]  # Influenced by "The" and "cat"
+"mice"   [0.9, 0.3]  # Influenced by all previous words
+```
 
 
 
