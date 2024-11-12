@@ -177,7 +177,7 @@ Acts like a sliding window over recent tokens, providing short-term, local memor
 - Functions as **short-term memory**
 
 <div align="center">
-  <img src="./images/shift.drawio.png" alt="Hungry Hippos Header">
+  <img src="./images/Shift.png" alt="Hungry Hippos Header">
 </div>
 
 
