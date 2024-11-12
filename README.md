@@ -47,6 +47,23 @@ Total complexity: L * h * O(n²)
 
 Memory requirements grow with L * h * n²
 
+
+## Self-Attention Complexity Analysis
+
+- **Sequence length**: \( n \) tokens
+- **Self-attention complexity**: \( O(n^2) \)
+
+If there are \( h \) attention heads:
+- **Each head**: \( O(n^2) \)
+- **Total per layer**: \( h \times O(n^2) \)
+
+### Across All Layers
+- **Number of layers**: \( L \)
+- **Total complexity**: \( L \times h \times O(n^2) \)
+
+Memory requirements grow with \( L \times h \times n^2 \).
+
+
 ## How can Attention be replaced?
 
 ### State Space Models (SSMs)
