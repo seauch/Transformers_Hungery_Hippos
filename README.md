@@ -25,9 +25,13 @@ The aim to expand the context length of our model. However, increasing it twofol
 In a transformer model, each token in the context window doesn’t operate independently—it "pays attention" to all other tokens to understand relationships and context. This means each token must connect with every other token in the window, creating a dense network of interactions that grows with the number of tokens. Doubling the number of tokens doesn’t just double these interactions; it quadruples them. For instance, increasing the tokens from 4 to 8 results in interactions jumping from 16 to 64, thereby quadrupling the processing cost. This exponential increase in interactions is what drives up computational costs significantly as we expand context length.
 
 <div align="center">
-  <img src="./images/Attention.png" alt="Hungry Hippos Header" width="500"/>
+  <img src="./images/arch.drawio.png" alt="Hungry Hippos Header" width="500"/>
 </div>
-<sub>*Description: Step-by-step illustration of how transformer models process text: from input tokens through attention-based connections to parallel neural network processing, highlighting the computational demands of comparing all words simultaneously. This underscores the computational bottleneck in transformer architectures where attention mechanisms must process n² token relationships, illustrated through a real-world sentence example.*</sub>
+
+<div align="center">
+  <img src="./images/Attention.drawio.png" alt="Hungry Hippos Header" width="500"/>
+</div>
+
 
 
 
