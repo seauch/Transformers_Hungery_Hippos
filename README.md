@@ -79,6 +79,7 @@ Similarly, while traditional Transformers get bogged down by trying to compare e
 
 ## What is the the Attention Problem?
 
+
 Transformers are "computationally intensive" because they require substantial processing power and memory, particularly as input sequences grow longer. This intensive demand stems from the self-attention mechanism, which calculates relationships between every pair of tokens in an input sequence. This calculation necessitates O(N^2) operations, meaning the computational requirements increase quadratically with sequence length.
 
 For instance, if the sequence length doubles from 500 to 1,000 tokens, the computational load doesn’t just double—it quadruples, increasing from 250,000 to 1,000,000 operations. This quadratic growth imposes a heavy burden on memory and processing resources, especially when handling lengthy sequences. Such demand can slow processing speed, increase energy consumption, and limit accessibility, particularly for organizations with fewer resources. As a result, this scaling issue restricts transformers’ ability to manage tasks that require extended context or long-form data processing efficiently.
