@@ -244,8 +244,12 @@ Acts as persistent memory across the entire sequence, providing long-term, globa
 
 ### A simple example in action
 
-
-
+<div align="center">
+  <img src="./images/H3-example.png" alt="Hungry Hippos Header">
+</div>
+<div align="center">
+  <img src="./images/example_full.png" alt="Hungry Hippos Header">
+</div>
 
 
 
