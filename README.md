@@ -33,7 +33,7 @@ In a transformer model, each token in the context window doesn’t operate indep
 Figure 1: Transformer Langage Models from #4 - Hungry Hungry Hippos: Towards Language Modeling with State Space Models
 
 <div align="center">
-  <img src="./images/Attention.drawio.png" alt="Hungry Hippos Header" width="500"/>
+  <img src="./images/Attention.png" alt="Hungry Hippos Header" width="500"/>
 </div>
 Figure 2: Attention: Quadratic Context Bottleneck from #4 - Hungry Hungry Hippos: Towards Language Modeling with State Space Models
 
