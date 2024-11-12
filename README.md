@@ -10,7 +10,7 @@ By Sarah Auch
 
 Welcome to an introduction on "Hungry Hungry Hippos: Towards Language Modeling with State Space Models." This research investigates whether the attention mechanisms in transformers, which are central to models like ChatGPT, Claude, and Co-Pilot, can be replaced by alternative computational methods. Specifically, the study examines the viability of using State Space Models (SSMs) as a substitute, aiming to maintain or even enhance transformers' performance in tasks that require long-range dependencies.
 
-### "We are interested in seeing if we can start to replace attention with some other primatives that does not grow quadratically in the sequence length" - Daniel Y. Fu
+### "We are interested in seeing if we can start to replace attention with some other primitives that does not grow quadratically in the sequence length" - Daniel Y. Fu
 
 This project addresses several computational bottlenecks presented by the attention mechanism. Transformers have revolutionized natural language processing, yet they face significant challenges, especially with high computational and memory costs that grow quadratically with sequence length. Each additional token in a sequence demands increased processing power and memory, slowing performance and escalating operational expenses. Transformers also struggle with long contexts, often forcing truncation and risking the loss of crucial information. Additionally, the high energy demands of transformers raise concerns about environmental and accessibility implications.
 
