@@ -176,6 +176,10 @@ Acts like a sliding window over recent tokens, providing short-term, local memor
 - Tracks **recently appeared tokens**
 - Functions as **short-term memory**
 
+<div align="center">
+  <img src="./images/shift.drawio.png" alt="Hungry Hippos Header">
+</div>
+
 
 ### Multiplicative Interactions Between SSMs (K⊙V)
 
