@@ -46,6 +46,10 @@ Across All Layers:
 Number of layers: L
 Total complexity: L * h * O(n²)
 
+Memory requirements grow with L * h * n²
+
+
+
 
 
 ## What does the childhood game Hungry Hungry Hippos have to do with replacing the attention mechanism with state space models?
