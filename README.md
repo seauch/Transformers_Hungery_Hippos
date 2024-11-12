@@ -159,7 +159,7 @@ The H3 model was designed to address these challenges, achieving:
 ### H3 Layer
 
 <div align="center">
-  <img src="./images/Attention.drawio.png" alt="Hungry Hippos Header" width="500"/>
+  <img src="./images/H3..png" alt="Hungry Hippos Header" width="500"/>
 </div>
 
 
