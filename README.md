@@ -59,11 +59,12 @@ Key takeaway: Hybrid H3-Attention Language Models found evidence that attention 
 
 ## H3 Layer
 
-
-`Time step 1:  [A] -> [_] -> [_] -> [_]
+```
+Time step 1:  [A] -> [_] -> [_] -> [_]
 Time step 2:  [B] -> [A] -> [_] -> [_]
 Time step 3:  [C] -> [B] -> [A] -> [_]
-Time step 4:  [D] -> [C] -> [B] -> [A]`
+Time step 4:  [D] -> [C] -> [B] -> [A]
+```
 
 
 
