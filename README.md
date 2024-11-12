@@ -162,12 +162,22 @@ The H3 model was designed to address these challenges, achieving:
   <img src="./images/H3..png" alt="Hungry Hippos Header" width="500"/>
 </div>
 
+### Shifft SSM
+
+Acts like a sliding window over recent tokens, providing short-term, local memory.
+
+#### Properties
+- **Uses shift matrix A**: Moves elements down by 1
+- **Example**: `[a,b,c] -> [0,a,b]`
+- **Creates local "memory"**: Retains a record of recent tokens
+
+#### Purpose
+- Looks at **local context**
+- Tracks **recently appeared tokens**
+- Functions as **short-term memory**
 
 
-
-
-"The shift SSM can detect when a particular event occurs, and the diagonal SSM can remember a token afterwards for the rest of the sequence."
-
+Diagonal SSM - Think of as a convolution with golobal memory
 
 
 
