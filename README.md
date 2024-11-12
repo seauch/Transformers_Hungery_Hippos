@@ -130,7 +130,7 @@ State Space Models have traditionally failed to perform as well on language mode
 
 1. **Ability to Remember Tokens After an Event**  
    - **Task**: "Induction Head"  
-   - **Example**: Given a sequence where a special token ` appears, the model needs to recall what token came immediately after that special token when it appeared earlier in the sequence
+   - **Example**: Given a sequence where a special token appears, the model needs to recall what token came immediately after that special token when it appeared earlier in the sequence
    - **Purpose**: This tests the model's ability to "log" or remember specific tokens based on their relationship to a trigger event.
   
 2. **Ability to Compare Tokens Across a Sequence**  
