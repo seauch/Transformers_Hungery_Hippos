@@ -60,7 +60,7 @@ Key takeaway: Hybrid H3-Attention Language Models found evidence that attention 
 ## H3 Layer
 
 
-'print('Hello World')'
+`print('Hello World')`
 
 
 
