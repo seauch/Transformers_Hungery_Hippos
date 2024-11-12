@@ -1,5 +1,4 @@
 
-
 <div align="center">
   <img src="./images/Hungry_Hippos_Readme_Header.png" alt="Hungry Hippos Header" width="500"/>
 </div>
