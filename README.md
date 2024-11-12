@@ -377,7 +377,7 @@ Fu, D. Y. (2023, May 1). #4 - Hungry Hungry Hippos: Towards Language Modeling wi
 
 Fu, D. Y., Dao, T., Saabz, K. K., Thomas, A. W., Rudra, A., & Re, C. (2023, April 29). Hungry Hungry Hippos: Towards Language Modeling with State Space Models. https://arxiv.org/pdf/2212.14052 
 
-
+Gu, A., & Dao, T. (2024, May 31). Mamba: Linear-Time Sequence Modeling with Selective State Spaces. https://arxiv.org/pdf/2312.00752 
 
 
 
