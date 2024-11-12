@@ -63,8 +63,8 @@ State Space Models (SSMs) have proven effective for modeling sequences like audi
 
 
 Pros:
-During training: O(NlogN) in sequence length
-During Generation: No need to process the whole input and no constraight to Context Length
+- During training: O(NlogN) in sequence length
+- During Generation: No need to process the whole input and no constraight to Context Length
 
 Cons:
 Performance Gap:
