@@ -177,7 +177,42 @@ Acts like a sliding window over recent tokens, providing short-term, local memor
 - Functions as **short-term memory**
 
 
-Diagonal SSM - Think of as a convolution with golobal memory
+### Multiplicative Interactions Between SSMs (K⊙V)
+
+#### 1. First Multiplicative Interaction: SSMshift(K) ⊙ V
+- **Purpose**: Gates which values get stored in memory
+  - Functions like saying "when I see key K, store value V"
+  - Enables local pattern detection and value storage
+
+- **Example for "a 2 b 3"**:
+  - **SSMshift(K)**: Tracks when we see 'a'
+  - **Multiplication with V**: Stores '2' when 'a' appears
+
+#### 2. After Diagonal SSM (Q⊙)
+- **Purpose**: Compares current token with stored memory
+  - Functions like asking "does the current token match what's in memory?"
+  - Controls when to output stored values
+
+- **Example for "a 2 b 3 a ?"**:
+  - **Q**: Represents the current token 'a'
+  - **Multiplication**: Checks if 'a' matches stored keys
+  - If a match is found, outputs the corresponding stored value '2'
+
+### Together in H3
+
+#### Complete Flow:
+1. **SSMshift(K) ⊙ V** - Stores values when keys appear
+2. **SSMdiag(...)** - Maintains stored values in memory
+3. **Q ⊙ [output]** - Retrieves values when matching keys appear
+
+#### Final Output:
+- `Final output = Q ⊙ SSMdiag(SSMshift(K) ⊙ V)`
+
+
+
+
+
+
 
 
 
