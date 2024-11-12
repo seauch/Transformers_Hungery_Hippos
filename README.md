@@ -35,20 +35,7 @@ In a transformer model, each token in the context window doesn’t operate indep
 
 ### ... This is just one layer...
 
-Sequence length: n tokens
-Self-attention complexity: O(n²)
-If there are h attention heads:
-Each head: O(n²)
-Total per layer: h * O(n²)
-
-Across All Layers:
-Number of layers: L
-Total complexity: L * h * O(n²)
-
-Memory requirements grow with L * h * n²
-
-
-## Self-Attention Complexity Analysis
+### Self-Attention Complexity Analysis
 
 - **Sequence length**: \( n \) tokens
 - **Self-attention complexity**: \( O(n^2) \)
