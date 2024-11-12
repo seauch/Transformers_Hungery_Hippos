@@ -357,9 +357,7 @@ Similarly, while traditional Transformers get bogged down by trying to compare e
 
 ## Analysis
 
-While models up to 2.7B parameters were tested, deeper analysis of scaling behavior would be valuable:
-How do pure H3 vs hybrid models scale with size?
-
+While models up to 2.7B parameters were tested, a deeper analysis of scaling behavior would be valuable, such as examining how pure H3 models vs. hybrid models scale with size.
 
 ## Impact
 
