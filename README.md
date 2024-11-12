@@ -301,7 +301,7 @@ Key takeaway: Hybrid H3-Attention Language Models found evidence that attention 
 <div align="center">
   <img src="./images/Hybrid.drawio.png" alt="Hungry Hippos Header">
 </div>
-
+Figure 5: Hybrid H3-Attention Layers
 
 
 ## What about the Speed Issues?
@@ -358,6 +358,13 @@ Similarly, while traditional Transformers get bogged down by trying to compare e
 
 Mamba extends the foundational concepts of H3 by incorporating input-dependent dynamics and hardware optimizations, resulting in a more versatile and efficient sequence modeling architecture.
 
+<div align="center">
+  <img src="./images/Mamba.png" alt="Hungry Hippos Header">
+</div>
+
+Figure 5: Mamba use of H3 Concepts from Mamba: Linear-Time Sequence Modeling with Selective State Spaces
+
+"Mamba is the first attention-free model to match the performance of a very strong Transformer recipe (Transformer++) that has now become standard, particularlyas the sequence length grows" - Page 11 of Mamba: Linear-Time Sequence Modeling with Selective State Spaces
 
 ## Sources:
 
