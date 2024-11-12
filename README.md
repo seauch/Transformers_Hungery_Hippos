@@ -29,9 +29,13 @@ In a transformer model, each token in the context window doesn’t operate indep
   <img src="./images/arch.drawio.png" alt="Hungry Hippos Header" width="500"/>
 </div>
 
+Figure 1: Transformer Langage Models from #4 - Hungry Hungry Hippos: Towards Language Modeling with State Space Models
+
 <div align="center">
   <img src="./images/Attention.drawio.png" alt="Hungry Hippos Header" width="500"/>
 </div>
+Figure 2: Attention: Quadratic Context Bottleneck from #4 - Hungry Hungry Hippos: Towards Language Modeling with State Space Models
+
 
 ### ... This is just one layer...
 
@@ -364,7 +368,12 @@ Similarly, while traditional Transformers get bogged down by trying to compare e
 
 Sources:
 
-https://www.youtube.com/watch?v=TkOSKrlpnU4
+Fu, D. Y. (2023, May 1). #4 - Hungry Hungry Hippos: Towards Language Modeling with State Space Models. YouTube. https://www.youtube.com/watch?v=TkOSKrlpnU4 
+
+Fu, D. Y., Dao, T., Saabz, K. K., Thomas, A. W., Rudra, A., & Re, C. (2023, April 29). Hungry Hungry Hippos: Towards Language Modeling with State Space Models. https://arxiv.org/pdf/2212.14052 
+
+
+
 
 
 
