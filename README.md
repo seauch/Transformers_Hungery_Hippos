@@ -47,6 +47,51 @@ Total complexity: L * h * O(n²)
 
 Memory requirements grow with L * h * n²
 
+## How can Attention be replaced?
+
+### State Space Models (SSMs)
+State Space Models have traditionally failed to perform as well on language modeling tasks. The research examined two specific synthetic tasks designed to test certain capabilities:
+
+1. **Ability to Remember Tokens After an Event**  
+   - **Task**: "Induction Head"  
+   - **Example**: Given a sequence where a special token ` appears, the model needs to recall what token came immediately after that special token when it appeared earlier in the sequence
+   - **Purpose**: This tests the model's ability to "log" or remember specific tokens based on their relationship to a trigger event.
+  
+2. **Ability to Compare Tokens Across a Sequence**  
+   - **Task**: "Associative Recall"  
+   - **Example**: Given a sequence of key-value pairs (e.g., "a 2 c 4 b 3 d 1") and then a key, the model must recall the corresponding value.  
+   - **Purpose**: This tests the model's ability to:
+     - Compare tokens (to find matching keys)
+     - Remember associations between token pairs
+     - Retrieve the correct value when the key is seen again
+
+### How Attention Mechanisms Naturally Address These Capabilities
+Attention has inherent mechanisms to manage both tasks:
+
+- **Token Comparison**: Achieved through the quadratic attention matrix \( QK^T \)
+- **Direct Recall**: Accomplished by multiplying \( \text{softmax}(QK^T) \) with \( V \)
+
+### Performance of Traditional SSMs
+Traditional SSMs struggled on these tasks:
+- S4D achieved **35.6% on Induction Head** and **86% on Associative Recall**.
+
+### Introducing the H3 Model
+The H3 model was designed to address these challenges, achieving:
+- **100% on Induction Head**
+- **99.8% on Associative Recall**
+
+### Mechanisms for Associative Recall Task
+In the Associative Recall task, the model's components function as follows:
+
+- The **shift SSM** and **first multiplicative interaction** act as a gate to control when to pass a value to the diagonal SSM.
+- The **diagonal SSM** stores the value in memory and continually outputs it.
+- The **final multiplicative interaction** determines whether to pass the diagonal SSM's output based on the current input token.
+
+
+
+
+
+
 
 ## Hybrid H3-Attention Language Models
 
@@ -88,6 +133,11 @@ After Shift SSM (K̄):
 ```
 
 
+### Multiplicative Interactions
+
+### Diagonal SSM
+
+### Multiplicative Interactions
 
 
 
