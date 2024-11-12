@@ -49,13 +49,6 @@ Total complexity: L * h * O(n²)
 Memory requirements grow with L * h * n²
 
 
-
-
-
-## What does the childhood game Hungry Hungry Hippos have to do with replacing the attention mechanism with state space models?
-
-
-
 ## Hybrid H3-Attention Language Models
 
 Key takeaway: Hybrid H3-Attention Language Models found evidence that attention is not required at every layer to perform similarly to or even outperform traditional transformer models
@@ -63,6 +56,12 @@ Key takeaway: Hybrid H3-Attention Language Models found evidence that attention 
 <div align="center">
   <img src="./images/Hybrid.drawio.png" alt="Hungry Hippos Header">
 </div>
+
+
+
+
+
+## What does the childhood game Hungry Hungry Hippos have to do with replacing the attention mechanism with state space models?
 
 
 
