@@ -51,9 +51,88 @@ If there are \( h \) attention heads:
 Memory requirements grow with \( L * h * n^2 \).
 
 
-## How can Attention be replaced?
+## What is the solution?
 
 ### State Space Models (SSMs)
+
+State Space Models (SSMs) have proven effective for modeling sequences like audio data and time series, demonstrating their potential for sequential tasks. While SSMs offer attractive properties like linear scaling and infinite context during generation, previous SSM architectures faced two key challenges:
+
+
+Pros:
+During training: O(NlogN) in sequence length
+During Generation: No need to process the whole input and no constraight to Context Length
+
+Cons:
+Performance Gap:
+- Underperform compared to Transformers on language tasks
+- Example: Several perplexity points worse than attention on language modeling
+- Existing SSMs (like S4D, GSS) struggled with token comparison and recall
+
+Speed Issues:
+- Despite theoretical efficiency, slower than Transformers in practice
+- Poor hardware utilization on modern GPUs
+- Particularly inefficient for shorter sequences
+- FFT operations don't leverage specialized hardware (like tensor cores)
+
+
+Recurrent View:
+For Generation:
+Continuous-time SSM:
+```
+# Differential equations:
+ẋ(t) = Ax(t) + Bu(t)    # State equation
+y(t) = Cx(t) + Du(t)    # Output equation
+
+Where:
+- x(t) is state variable (dimension m)
+- u(t) is input signal
+- y(t) is output signal  
+- t represents continuous time
+```
+
+Discrete-time SSM
+```
+# Difference equations:
+xi = Axi-1 + Bui    # State update
+yi = Cxi + Dui      # Output computation
+
+Where:
+- xi is state at step i
+- ui is input at step i
+- yi is output at step i
+```
+
+Basic Structure:
+- Usually run d parallel SSMs (one per hidden dimension)
+- Each SSM learns its own A, B, C, D matrices
+- State variable x acts as memory, tracking sequence history
+
+```
+Convolutional View:
+For Trainning:
+# SSM as Convolution:
+f = [CB, CAB, CA²B, ..., CA^(N-1)B]  # Create filter
+y = f * u + Du  # Convolve filter with input
+
+# Efficient Implementation:
+- Use Fast Fourier Transforms (FFT)
+- Complexity: O(N log N) vs O(N²)
+- Steps:
+  1. Take FFT of filter f
+  2. Take FFT of input u
+  3. Multiply results pointwise
+  4. Take inverse FFT
+```
+
+### Will State Space Models work for language tasks?
+
+
+
+
+
+
+
+
 State Space Models have traditionally failed to perform as well on language modeling tasks. The research examined two specific synthetic tasks designed to test certain capabilities:
 
 1. **Ability to Remember Tokens After an Event**  
