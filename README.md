@@ -350,7 +350,7 @@ Similarly, while traditional Transformers get bogged down by trying to compare e
 
 
 
-Sources:
+## Sources:
 
 Fu, D. Y. (2023, May 1). #4 - Hungry Hungry Hippos: Towards Language Modeling with State Space Models. YouTube. https://www.youtube.com/watch?v=TkOSKrlpnU4 
 
