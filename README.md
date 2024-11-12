@@ -291,6 +291,8 @@ Key takeaway: Hybrid H3-Attention Language Models found evidence that attention 
 
 
 
+## What about the Speed Issues?
+
 
 
 
@@ -318,12 +320,6 @@ Key takeaway: Hybrid H3-Attention Language Models found evidence that attention 
 Just like those hungry hippos snapping up marbles in a nonstop stream, the H3 model is built to "devour" long sequences of text with impressive speed and efficiency. Imagine playing Hungry Hungry Hippos—you don’t need to carefully compare each marble to every other marble (which would be painfully slow!); the hippos just keep chomping away in a smooth, continuous motion.
 
 Similarly, while traditional Transformers get bogged down by trying to compare every word to every other word in a sequence (picture having to pair up each marble one by one), H3 tackles text in a more streamlined, seamless way, just like our marble-munching hippos. And just as those hippos never seem to get full, H3 can handle much longer sequences of text without getting computationally “stuffed,” making it a truly hungry model for processing language!
-
-
-
-
-
-
 
 
 
