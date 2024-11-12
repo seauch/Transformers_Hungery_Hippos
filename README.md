@@ -261,6 +261,62 @@ Acts as persistent memory across the entire sequence, providing long-term, globa
 Figure 4: How H3 Can Solve Associative Recall from #4 - Hungry Hungry Hippos: Towards Language Modeling with State Space Models
 
 
+
+### Pseudocode
+
+```
+Algorithm: H3Layer
+Input: 
+- x ∈ ℝ^{d×N}: Input sequence of length N with dimension d
+- WQ, WK, WV ∈ ℝ^{d×d}: Query, key, value projection matrices
+- WO ∈ ℝ^{d×d}: Output projection matrix
+- SSMshift: Shift SSM parameters {A_shift, B_shift, C_shift}
+- SSMdiag: Diagonal SSM parameters {A_diag, B_diag, C_diag} 
+- H: Number of attention heads
+- dh: Head dimension (d/H)
+
+Output:
+- y ∈ ℝ^{d×N}: Transformed sequence
+
+Steps:
+1. Project input to Q, K, V:
+   Q = WQ · x  // Query projection
+   K = WK · x  // Key projection 
+   V = WV · x  // Value projection
+
+2. Split into H heads:
+   For h = 1 to H:
+       Q(h) = Q[h·dh:(h+1)·dh, :]
+       K(h) = K[h·dh:(h+1)·dh, :]
+       V(h) = V[h·dh:(h+1)·dh, :]
+
+3. For each head h:
+   // Apply shift SSM to keys
+   K'(h) = SSMshift(K(h))
+   
+   // Outer product of shifted keys and values
+   S(h) = K'(h) · V(h)^T
+   
+   // Apply diagonal SSM
+   D(h) = SSMdiag(S(h))
+   
+   // Multiply with queries
+   O(h) = Q(h) ⊙ D(h)
+
+4. Concatenate heads and project:
+   O = Concat(O(1), ..., O(H))
+   y = WO · O
+
+5. Return y
+
+Where:
+- SSMshift applies a shift SSM: x_t = A_shift·x_{t-1} + B_shift·u_t, y_t = C_shift·x_t
+- SSMdiag applies a diagonal SSM: x_t = A_diag·x_{t-1} + B_diag·u_t, y_t = C_diag·x_t
+- ⊙ denotes element-wise multiplication
+```
+
+
+
 ## Evaluating 
 
 Evaluation of 2-layer models on synthetic language tasks.
