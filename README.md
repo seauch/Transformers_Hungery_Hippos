@@ -75,10 +75,20 @@ Attention has inherent mechanisms to manage both tasks:
 Traditional SSMs struggled on these tasks:
 - S4D achieved **35.6% on Induction Head** and **86% on Associative Recall**.
 
-### Introducing the H3 Model
+## Introducing the H3 Model
 The H3 model was designed to address these challenges, achieving:
 - **100% on Induction Head**
 - **99.8% on Associative Recall**
+
+### What Happened?
+
+1. H3 layer
+2. FlashConv
+
+### Illistration H3 Layer
+
+
+"The shift SSM can detect when a particular event occurs, and the diagonal SSM can remember a token afterwards for the rest of the sequence."
 
 ### Mechanisms for Associative Recall Task
 In the Associative Recall task, the model's components function as follows:
@@ -89,6 +99,9 @@ In the Associative Recall task, the model's components function as follows:
 
 
 
+
+
+## Evaluating Perplexity on OpenWebText
 
 
 
@@ -149,29 +162,7 @@ After Shift SSM (K̄):
 
 
 
-## What did they do?
 
-The H3 layers, designed with state space models (SSMs) in place of self-attention, address several challenges inherent to Transformer architectures:
-
-Scalability: Unlike traditional attention mechanisms, which scale quadratically, H3 layers scale linearly with context length, making them more efficient for processing longer sequences.
-
-Flexible Context Handling: H3 layers operate without a fixed context window, allowing for more adaptable context management compared to conventional Transformer layers.
-Minimal Attention Usage: Nearly all attention layers in the Transformer model are replaced by H3 layers, except for two, significantly reducing the model's reliance on attention.
-
-Enhanced Performance: This approach leads to improved performance in language modeling tasks, achieving superior metrics like perplexity (PPL) and outperforming traditional Transformers in various downstream evaluations.
-
-Accelerated Speed and Scalability: With the implementation of FlashConv to optimize SSMs, H3 layers support scalability up to 2.7 billion parameters, significantly enhancing the model's speed and capacity.
-
-These features allow the H3 model to efficiently manage long sequences and large-scale data with enhanced performance and reduced computational requirements compared to traditional Transformers.
-
-
-
-
-
-
-
-
-## Self-attention vs. State Space Models
 
 
 
@@ -181,42 +172,6 @@ Just like those hungry hippos snapping up marbles in a nonstop stream, the H3 mo
 Similarly, while traditional Transformers get bogged down by trying to compare every word to every other word in a sequence (picture having to pair up each marble one by one), H3 tackles text in a more streamlined, seamless way, just like our marble-munching hippos. And just as those hippos never seem to get full, H3 can handle much longer sequences of text without getting computationally “stuffed,” making it a truly hungry model for processing language!
 
 
-## What is the the Attention Problem?
-
-
-Transformers are "computationally intensive" because they require substantial processing power and memory, particularly as input sequences grow longer. This intensive demand stems from the self-attention mechanism, which calculates relationships between every pair of tokens in an input sequence. This calculation necessitates O(N^2) operations, meaning the computational requirements increase quadratically with sequence length.
-
-For instance, if the sequence length doubles from 500 to 1,000 tokens, the computational load doesn’t just double—it quadruples, increasing from 250,000 to 1,000,000 operations. This quadratic growth imposes a heavy burden on memory and processing resources, especially when handling lengthy sequences. Such demand can slow processing speed, increase energy consumption, and limit accessibility, particularly for organizations with fewer resources. As a result, this scaling issue restricts transformers’ ability to manage tasks that require extended context or long-form data processing efficiently.
-
-## Why State Space Models?
-
-State Space Models (SSMs) offer an alternative by scaling linearly, requiring 
-O(n) operations instead of O(N^2). This linear scaling means that computational costs grow at the same rate as the sequence length, making SSMs significantly more efficient for longer sequences.
-
-For example:
-
-For 1,000 tokens, an SSM requires approximately 1,000 operations.
-For 2,000 tokens, it requires around 2,000 operations.
-
-By growing linearly, SSMs avoid the exponential increase in computational costs that transformers face. This makes them a promising approach for maintaining the benefits of transformers while mitigating the high resource demands, allowing for efficient handling of lengthy sequences without overwhelming memory or processing capacity.
-
-
-## The Goal of Hungry Hungry Hippos
-The goal of the Hungry Hungry Hippos project is to replace attention mechanisms in transformers with alternative methods that do not grow quadratically in sequence length. These new mechanisms should scale better with longer sequences, maintaining efficiency as input size increases. Additionally, they should provide similar modeling capabilities, ensuring that the model’s performance is not compromised. Finally, these methods should be designed to use less memory and computation, making the model more resource-efficient and accessible for broader applications. 
-
-
-
-## How H3 Achieves This?
-
-
-Instead of comparing all tokens with all others (attention approach)
-Uses two types of SSMs:
-
-Shift SSM: remembers recent tokens
-Diagonal SSM: maintains long-term information
-
-
-Combines them with multiplicative interactions to enable token comparison
 
 
 
@@ -225,9 +180,6 @@ Combines them with multiplicative interactions to enable token comparison
 
 
 
-
-
-## Questions
 
 Sources:
 
