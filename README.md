@@ -353,7 +353,9 @@ Just like those hungry hippos snapping up marbles in a nonstop stream, the H3 mo
 Similarly, while traditional Transformers get bogged down by trying to compare every word to every other word in a sequence (picture having to pair up each marble one by one), H3 tackles text in a more streamlined, seamless way, just like our marble-munching hippos. And just as those hippos never seem to get full, H3 can handle much longer sequences of text without getting computationally “stuffed,” making it a truly hungry model for processing language!
 
 
+## Impact
 
+Mamba extends the foundational concepts of H3 by incorporating input-dependent dynamics and hardware optimizations, resulting in a more versatile and efficient sequence modeling architecture.
 
 
 ## Sources:
