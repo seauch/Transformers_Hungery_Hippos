@@ -165,6 +165,8 @@ The H3 model was designed to address these challenges, achieving:
 <div align="center">
   <img src="./images/H3..png" alt="Hungry Hippos Header" width="500"/>
 </div>
+Figure 3: Hunger Hunger Hippos:Design for Associative Recall from #4 - Hungry Hungry Hippos: Towards Language Modeling with State Space Models
+
 
 ### Shifft SSM
 
@@ -184,6 +186,7 @@ Acts like a sliding window over recent tokens, providing short-term, local memor
   <img src="./images/Shift.png" alt="Hungry Hippos Header">
 </div>
 
+Figure 4: The shift Remembers Prevous Token from #4 - Hungry Hungry Hippos: Towards Language Modeling with State Space Models
 
 ### Diagonal SSM
 
@@ -255,7 +258,7 @@ Acts as persistent memory across the entire sequence, providing long-term, globa
   <img src="./images/example_full.drawio.png" alt="Hungry Hippos Header">
 </div>
 
-
+Figure 4: How H3 Can Solve Associative Recall from #4 - Hungry Hungry Hippos: Towards Language Modeling with State Space Models
 
 
 ## Evaluating 
@@ -267,7 +270,7 @@ Evaluation of 2-layer models on synthetic language tasks.
 | Induction Head    | 5.0    | 35.6 | 6.8                 | 100.0| 100.0     |
 | Associative Recall| 25.0   | 86.0 | 78.0                | 99.8 | 100.0     |
 
-
+Tabel 1: From Hungry Hungry Hippos: Towards Language Modeling with State Space Models page 4
 
 ### Perplexity of SSM Variants Compared to Transformers on OpenWebText
 
@@ -281,8 +284,7 @@ All models have 12 layers, with a size around 125M, and are trained with the sam
 | GSS                  | 24.0       |
 | GSS Hybrid (2 Attn)  | 19.8       |
 | Transformer          | 20.6       |
-
-
+Tabel 2: From Hungry Hungry Hippos: Towards Language Modeling with State Space Models page 6
 
 
 ### Hybrid H3-Attention Language Models
@@ -336,24 +338,6 @@ FlashConv delivers substantial speed improvements across multiple benchmarks:
 These efficiency gains were essential in scaling H3 to billion-parameter models. The optimized FFT computations and intelligent memory management make H3 a practical alternative to attention-based architectures for long-sequence modeling.
 
 The implementation achieves these speedups while preserving the theoretical advantages of SSMs. The algorithms are crafted to maximize hardware utilization on modern accelerators, ensuring numerical stability and accuracy.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
