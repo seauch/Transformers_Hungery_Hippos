@@ -200,68 +200,74 @@ Figure 4: How H3 Can Solve Associative Recall from #4 - Hungry Hungry Hippos: To
 ### Pseudocode
 
 ```
-# Input: x ∈ ℝ^{d×N} (sequence length N, dimension d)
-Q = WQ @ x  # Query projection: ℝ^{d×d} @ ℝ^{d×N} -> ℝ^{d×N}
-K = WK @ x  # Key projection
-V = WV @ x  # Value projection
+Algorithm: H3Layer
+Input: x ∈ ℝ^{d×N} # Sequence of length N with dimension d
+Parameters:
+- WQ, WK, WV ∈ ℝ^{d×d}  # Projection matrices
+- bQ, bK, bV ∈ ℝ^d      # Bias vectors
+- H ∈ ℕ                 # Number of attention heads
+- dh = d/H              # Head dimension
+- A_shift ∈ ℝ^{m×m}     # Shift SSM matrix
+- A_diag ∈ ℝ^{m×m}      # Diagonal SSM matrix  
+- B_shift, B_diag ∈ ℝ^{m×dh} # SSM input projections
+- C_shift, C_diag ∈ ℝ^{dh×m} # SSM output projections
+- WO ∈ ℝ^{d×d}         # Output projection
 
-#Query (Q): Represents what we're looking for
-#Key (K): Represents what we're matching against
-#Value (V): Represents the information to be retrieved
+# 1. Input projections
+Q = WQ @ x + bQ        # ℝ^{d×N}
+K = WK @ x + bK        # ℝ^{d×N} 
+V = WV @ x + bV        # ℝ^{d×N}
 
-# Split into H heads of dimension dh = d/H
-def split_heads(x, H):
+# 2. Split into heads
+def split_heads(x):
     # x: ℝ^{d×N} -> H × ℝ^{dh×N}
-    return x.reshape(H, -1, N)
+    return reshape(x, (H, dh, N))
 
-# Split into H heads of dimension dh = d/H
-def split_heads(x, H):
-    # x: ℝ^{d×N} -> H × ℝ^{dh×N}
-    return x.reshape(H, -1, N)
+Q_heads = split_heads(Q)  # H × ℝ^{dh×N}
+K_heads = split_heads(K)  # H × ℝ^{dh×N}
+V_heads = split_heads(V)  # H × ℝ^{dh×N}
 
-Q_heads = split_heads(Q, H)
-K_heads = split_heads(K, H)
-V_heads = split_heads(V, H)
-
-#Multi-head processing enables
-#1. Parallel processing of different features
-#2. Multiple representation subspaces
-#3. Better modeling of different types of relationships
-
-
-def shift_ssm(K, A_shift, B_shift, C_shift):
-    """
-    Applies shift SSM to capture sequential relationships
-    Input: K ∈ ℝ^{dh×N}
-    Output: K' ∈ ℝ^{dh×N}
-
-    A_shift: Shifts state vector elements down by one position
-    B_shift: Projects input into state space
-    C_shift: Projects state back to output space
-    """
-    x_t = 0  # Initial state
+# 3. Apply SSMs per head
+def shift_ssm(K, state_size=m):
+    """Shift SSM to capture sequential dependencies"""
+    x = zeros(state_size)  # Initial state
     outputs = []
     for t in range(N):
-        x_t = A_shift @ x_t + B_shift @ K[:, t]
-        y_t = C_shift @ x_t
-        outputs.append(y_t)
-    return torch.stack(outputs, dim=1)
+        x = A_shift @ x + B_shift @ K[:, t]
+        y = C_shift @ x
+        outputs.append(y)
+    return stack(outputs, dim=1)  # ℝ^{dh×N}
 
-# For each head h:
-K_shifted = shift_ssm(K_heads[h], A_shift, B_shift, C_shift)
-# Matrix multiplication for similarity computation
-S = K_shifted @ V_heads[h].transpose(-2, -1)  # ℝ^{dh×N} @ ℝ^{N×dh} -> ℝ^{dh×dh}
+def diagonal_ssm(K, state_size=m):
+    """Diagonal SSM to capture long-range dependencies"""
+    x = zeros(state_size)
+    outputs = []
+    for t in range(N):
+        x = A_diag @ x + B_diag @ K[:, t]
+        y = C_diag @ x
+        outputs.append(y)
+    return stack(outputs, dim=1)  # ℝ^{dh×N}
 
-# For each head h:
-K_shifted = shift_ssm(K_heads[h], A_shift, B_shift, C_shift)
-# Matrix multiplication for similarity computation
-S = K_shifted @ V_heads[h].transpose(-2, -1)  # ℝ^{dh×N} @ ℝ^{N×dh} -> ℝ^{dh×dh}
+# 4. Process each head
+O_heads = []
+for h in range(H):
+    # Apply SSMs
+    K_shifted = shift_ssm(K_heads[h])     # ℝ^{dh×N}
+    K_diagonal = diagonal_ssm(K_heads[h])  # ℝ^{dh×N}
+    
+    # Compute interactions
+    S1 = K_shifted @ V_heads[h].T         # ℝ^{dh×dh}
+    S2 = K_diagonal @ V_heads[h].T        # ℝ^{dh×dh}
+    
+    # Combine with query
+    O_h = Q_heads[h] * (S1 + S2)         # ℝ^{dh×N}
+    O_heads.append(O_h)
 
-# Combine heads
-O_combined = torch.cat([O_h for O_h in O_heads], dim=0)  # H×ℝ^{dh×N} -> ℝ^{d×N}
-# Final projection
-y = WO @ O_combined  # ℝ^{d×d} @ ℝ^{d×N} -> ℝ^{d×N}
+# 5. Combine heads and project output
+O_combined = concat(O_heads, dim=0)       # ℝ^{d×N}
+output = WO @ O_combined                  # ℝ^{d×N}
 
+return output
 
 
 ```
