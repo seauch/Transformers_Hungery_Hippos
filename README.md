@@ -38,23 +38,7 @@ Figure 1: Transformer Langage Models from #4 - Hungry Hungry Hippos: Towards Lan
 Figure 2: Attention: Quadratic Context Bottleneck from #4 - Hungry Hungry Hippos: Towards Language Modeling with State Space Models
 
 
-### ... This is just one layer...
-
-### Self-Attention Complexity Analysis
-
-- **Sequence length**: \( n \) tokens
-- **Self-attention complexity**: \( O(n^2) \)
-
-If there are \( h \) attention heads:
-- **Each head**: \( O(n^2) \)
-- **Total per layer**: \( h * O(n^2) \)
-
-### Across All Layers
-- **Number of layers**: \( L \)
-- **Total complexity**: \( L * h * O(n^2) \)
-
-Memory requirements grow with \( L * h * n^2 \).
-
+Take a second to think about what doubling n would look like in this image
 
 ## What is the solution?
 
