@@ -38,7 +38,7 @@ Figure 1: Transformer Langage Models from #4 - Hungry Hungry Hippos: Towards Lan
 Figure 2: Attention: Quadratic Context Bottleneck from #4 - Hungry Hungry Hippos: Towards Language Modeling with State Space Models
 
 
-Take a second to think about what doubling n would look like in this image
+### Take a second to think about what doubling n would look like in this image
 
 ## What is the solution?
 
