@@ -337,10 +337,10 @@ For longer sequences (>8K):
 - Enables processing arbitrarily long sequences while keeping linear complexity
 
 ### Evalution: Comparing H3 Hybrid Model with Transformer
-2x speedup on Long Range Arena
-4-8x faster training for long sequences
-2.4x faster text generation
-Maintains near-linear scaling
+- 2x speedup on Long Range Arena
+- 4-8x faster training for long sequences
+- 2.4x faster text generation
+- Maintains near-linear scaling
 
 
 
