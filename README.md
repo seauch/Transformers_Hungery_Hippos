@@ -86,15 +86,7 @@ Attention has inherent mechanisms to manage both tasks:
 - **Token Comparison**: Achieved through the quadratic attention matrix \( QK^T \)
 - **Direct Recall**: Accomplished by multiplying \( softmax(QK^T) \) with \( V \)
 
-### Performance of Traditional SSMs
-Traditional SSMs struggled on these tasks:
-- S4D achieved **35.6% on Induction Head** and **86% on Associative Recall**.
-
 ## Introducing the H3 Model
-The H3 model was designed to address these challenges, achieving:
-- **100% on Induction Head**
-- **99.8% on Associative Recall**
-
 ### H3 Layer
 
 <div align="center">
