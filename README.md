@@ -216,54 +216,70 @@ Figure 4: How H3 Can Solve Associative Recall from #4 - Hungry Hungry Hippos: To
 ### Pseudocode
 
 ```
-Algorithm: H3Layer
-Input: 
-- x ∈ ℝ^{d×N}: Input sequence of length N with dimension d
-- WQ, WK, WV ∈ ℝ^{d×d}: Query, key, value projection matrices
-- WO ∈ ℝ^{d×d}: Output projection matrix
-- SSMshift: Shift SSM parameters {A_shift, B_shift, C_shift}
-- SSMdiag: Diagonal SSM parameters {A_diag, B_diag, C_diag} 
-- H: Number of attention heads
-- dh: Head dimension (d/H)
+# Input: x ∈ ℝ^{d×N} (sequence length N, dimension d)
+Q = WQ @ x  # Query projection: ℝ^{d×d} @ ℝ^{d×N} -> ℝ^{d×N}
+K = WK @ x  # Key projection
+V = WV @ x  # Value projection
 
-Output:
-- y ∈ ℝ^{d×N}: Transformed sequence
+#Query (Q): Represents what we're looking for
+#Key (K): Represents what we're matching against
+#Value (V): Represents the information to be retrieved
 
-Steps:
-1. Project input to Q, K, V:
-   Q = WQ · x  // Query projection
-   K = WK · x  // Key projection 
-   V = WV · x  // Value projection
+# Split into H heads of dimension dh = d/H
+def split_heads(x, H):
+    # x: ℝ^{d×N} -> H × ℝ^{dh×N}
+    return x.reshape(H, -1, N)
 
-2. Split into H heads:
-   For h = 1 to H:
-       Q(h) = Q[h·dh:(h+1)·dh, :]
-       K(h) = K[h·dh:(h+1)·dh, :]
-       V(h) = V[h·dh:(h+1)·dh, :]
+# Split into H heads of dimension dh = d/H
+def split_heads(x, H):
+    # x: ℝ^{d×N} -> H × ℝ^{dh×N}
+    return x.reshape(H, -1, N)
 
-3. For each head h:
-   // Apply shift SSM to keys
-   K'(h) = SSMshift(K(h))
-   
-   // Outer product of shifted keys and values
-   S(h) = K'(h) · V(h)^T
-   
-   // Apply diagonal SSM
-   D(h) = SSMdiag(S(h))
-   
-   // Multiply with queries
-   O(h) = Q(h) ⊙ D(h)
+Q_heads = split_heads(Q, H)
+K_heads = split_heads(K, H)
+V_heads = split_heads(V, H)
 
-4. Concatenate heads and project:
-   O = Concat(O(1), ..., O(H))
-   y = WO · O
+#Multi-head processing enables
+#1. Parallel processing of different features
+#2. Multiple representation subspaces
+#3. Better modeling of different types of relationships
 
-5. Return y
 
-Where:
-- SSMshift applies a shift SSM: x_t = A_shift·x_{t-1} + B_shift·u_t, y_t = C_shift·x_t
-- SSMdiag applies a diagonal SSM: x_t = A_diag·x_{t-1} + B_diag·u_t, y_t = C_diag·x_t
-- ⊙ denotes element-wise multiplication
+def shift_ssm(K, A_shift, B_shift, C_shift):
+    """
+    Applies shift SSM to capture sequential relationships
+    Input: K ∈ ℝ^{dh×N}
+    Output: K' ∈ ℝ^{dh×N}
+
+    A_shift: Shifts state vector elements down by one position
+    B_shift: Projects input into state space
+    C_shift: Projects state back to output space
+    """
+    x_t = 0  # Initial state
+    outputs = []
+    for t in range(N):
+        x_t = A_shift @ x_t + B_shift @ K[:, t]
+        y_t = C_shift @ x_t
+        outputs.append(y_t)
+    return torch.stack(outputs, dim=1)
+
+# For each head h:
+K_shifted = shift_ssm(K_heads[h], A_shift, B_shift, C_shift)
+# Matrix multiplication for similarity computation
+S = K_shifted @ V_heads[h].transpose(-2, -1)  # ℝ^{dh×N} @ ℝ^{N×dh} -> ℝ^{dh×dh}
+
+# For each head h:
+K_shifted = shift_ssm(K_heads[h], A_shift, B_shift, C_shift)
+# Matrix multiplication for similarity computation
+S = K_shifted @ V_heads[h].transpose(-2, -1)  # ℝ^{dh×N} @ ℝ^{N×dh} -> ℝ^{dh×dh}
+
+# Combine heads
+O_combined = torch.cat([O_h for O_h in O_heads], dim=0)  # H×ℝ^{dh×N} -> ℝ^{d×N}
+# Final projection
+y = WO @ O_combined  # ℝ^{d×d} @ ℝ^{d×N} -> ℝ^{d×N}
+
+
+
 ```
 
 
@@ -305,46 +321,26 @@ Figure 5: Hybrid H3-Attention Layers
 
 
 ## What about the Speed Issues?
+The core challenge is that while SSMs theoretically scale better than attention (linear vs quadratic), naive implementations are still slow due to poor hardware utilization. FlashConv addresses this through two main components:
+
+For "shorter" sequences (up to 8K):
+
+- Uses fused block FFT that combines operations into a single kernel to minimize memory transfers
+- Breaks down FFT computation into specialized matrix multiplications that can leverage hardware accelerators like tensor cores
+- Trades slightly more FLOPs for much better hardware efficiency
+
+For longer sequences (>8K):
 
 
+- Novel state-passing algorithm that processes sequence in chunks
+- Maintains recurrent state between chunks to preserve sequence continuity
+- Enables processing arbitrarily long sequences while keeping linear complexity
 
-## Efficient Training and Inference
-
-While state space models (SSMs) scale nearly linearly with sequence length compared to the quadratic complexity of attention, existing SSM implementations still suffer from poor hardware utilization. **H3** introduces **FlashConv**, a hierarchical algorithm for computing SSMs that significantly improves training and inference speed through two key innovations:
-
-### Fused Block FFTConv
-
-For sequences up to length 8K, FlashConv employs a fused block FFT algorithm that dramatically enhances hardware efficiency:
-
-1. **Kernel Fusion**: The algorithm fuses the FFT, pointwise multiply, and inverse FFT operations into a single kernel to minimize costly GPU memory operations, reducing intermediate reads/writes that typically dominate runtime.
-
-2. **Block FFT**: FFT computation is decomposed into block-diagonal matrix multiplications interleaved with permutations, leveraging specialized matrix multiplication units (e.g., tensor cores on modern GPUs). This provides substantial speedups over standard FFT implementations.
-
-The block FFT algorithm achieves \(O(Nr \log N / \log r)\) FLOPs for sequence length \(N\) when \(N\) can be written as \(r^p\). Although this requires more operations than the standard \(O(N \log N)\) FFT, it achieves faster performance in practice through hardware-accelerated matrix operations.
-
-### State-Passing for Long Sequences
-
-For sequences longer than 8K that exceed GPU SRAM capacity, H3 employs a novel state-passing algorithm that:
-
-1. Splits input sequences into chunks of maximum size \(N'\) that fit in SRAM.
-2. Processes each chunk using the efficient block FFTConv.
-3. Maintains a recurrent state between chunks to preserve sequence continuity.
-4. Updates states efficiently using specialized matrix operations.
-
-This method enables scaling to arbitrary sequence lengths while maintaining near-linear computational complexity. The state-passing algorithm leverages the recurrent properties of SSMs to process long sequences chunk-by-chunk without sacrificing model capability.
-
-### Performance Results
-
-FlashConv delivers substantial speed improvements across multiple benchmarks:
-
-- **2x faster** than previous SSM implementations on the Long Range Arena benchmark.
-- **4-8x faster** training compared to attention for long sequences.
-- **2.4x faster** text generation in hybrid H3-attention models versus Transformer baselines.
-- Maintains **near-linear scaling** with sequence length, even for very long sequences.
-
-These efficiency gains were essential in scaling H3 to billion-parameter models. The optimized FFT computations and intelligent memory management make H3 a practical alternative to attention-based architectures for long-sequence modeling.
-
-The implementation achieves these speedups while preserving the theoretical advantages of SSMs. The algorithms are crafted to maximize hardware utilization on modern accelerators, ensuring numerical stability and accuracy.
+### Evalution: Comparing H3 Hybrid Model with Transformer
+2x speedup on Long Range Arena
+4-8x faster training for long sequences
+2.4x faster text generation
+Maintains near-linear scaling
 
 
 
